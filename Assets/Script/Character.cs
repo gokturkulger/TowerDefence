@@ -1,16 +1,17 @@
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character 
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] float health;
+    [SerializeField] float speed;
+    [System.Serializable]
+    public enum TypeOfCharecter
     {
-        
+      
+        Player,
+        Enemy
     }
+    //[SerializeField] 
+    //[SerializeField]
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
