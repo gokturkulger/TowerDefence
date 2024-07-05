@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
             {
                 enemyHealth.TakeDamage(damage);
             }
-
+            Debug.Log(collision.gameObject.name);
             // Çarpýþmadan sonra mermiyi yok edelim
             Destroy(gameObject);
         }
@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour
         {
             enemyHealth.TakeDamage(damage);
         }
-
+        Debug.Log(other.gameObject.name);
         // Çarpýþmadan sonra mermiyi yok edelim
         Destroy(gameObject);
     }

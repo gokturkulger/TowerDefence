@@ -29,14 +29,14 @@ public class EnemySpawn : MonoBehaviour
     {
         int maxEnemies = levelManager.GetMaxEnemiesForCurrentLevel();
          currentEnemies++;
-        if (maxEnemies/2==currentEnemies)
-        {
-            Instantiate(enemyPrefab2, spawnPoint.position, spawnPoint.rotation);
-            return;
-        }
-        if (currentEnemies < maxEnemies)
+        if (currentEnemies<=maxEnemies/2)
         {
             Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+       
+        }
+        if ( currentEnemies>maxEnemies/2 && currentEnemies <= maxEnemies)
+        {
+            Instantiate(enemyPrefab2, spawnPoint.position, spawnPoint.rotation);
         }
     }
 }

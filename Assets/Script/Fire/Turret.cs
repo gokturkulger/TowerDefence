@@ -5,11 +5,13 @@ public class Turret : MonoBehaviour
     public int Level { get; private set; } = 1;
     public Material defaultMaterial;
     public Material selectedMaterial;
-
+    public WeopanSystem weaponSystem;
+    public Shoot shoot;
     private Renderer rend;
 
     void Start()
     {
+        //shoot = gameObject.GetComponent<Shoot>();
        
     }
     private void Awake()
@@ -44,12 +46,17 @@ public class Turret : MonoBehaviour
     public void Upgrade()
     {
         Level++;
-        // Taretin seviyesine göre performans veya özelliklerin arttýrýlmasý yapýlabilir
+
+        Debug.Log(weaponSystem.firePower+"first");
+        //shoot.weaponSystem = weaponSystem;
+        weaponSystem.firePower += 5;
+       
+        Debug.Log(weaponSystem.firePower + "sec");
         Debug.Log("Turret upgraded to level " + Level);
     }
 
     public int GetUpgradeCost()
     {
-        return Level * 100; // Örnek olarak her seviye için maliyet artýþý
+        return Level * 200; // Örnek olarak her seviye için maliyet artýþý
     }
 }

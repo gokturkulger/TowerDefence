@@ -9,7 +9,7 @@ public class CharacterMovement : MonoBehaviour, IMovable
     public CharacterData characterData;
 
     private NavMeshAgent navAgent;
-    private GameObject currentTarget;
+    public GameObject currentTarget;
     private bool isApproachingTarget = true;
 
     void Start()
@@ -25,6 +25,7 @@ public class CharacterMovement : MonoBehaviour, IMovable
 
     void Update()
     {
+        Debug.Log(navAgent.destination);
         // Hedefin hala geçerli olup olmadığını kontrol et
         if (currentTarget == null || !currentTarget.activeInHierarchy || !isApproachingTarget)
         {
@@ -51,12 +52,18 @@ public class CharacterMovement : MonoBehaviour, IMovable
                 isApproachingTarget = false;
                 navAgent.isStopped = true;
             }
+            else
+            {
+              
+                isApproachingTarget = true;
+                MoveTowards(currentTarget);
+            }
         }
     }
 
     public void MoveTowards(GameObject target)
     {
-        if (target == null || !target.CompareTag("Target")) return;
+        if ( !target.CompareTag("Target")) return;
 
         navAgent.SetDestination(target.transform.position);
         navAgent.isStopped = false;

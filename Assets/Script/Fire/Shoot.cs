@@ -8,12 +8,20 @@ public class Shoot : MonoBehaviour
             // Ateþ menzili
 
     private float nextFireTime = 0f;     // Bir sonraki ateþ zamaný
-    private Transform target;
+    public Transform target;
     private string targetTag;
 
 
     void Start()
     {
+        foreach (Transform child in gameObject.transform)
+        {
+            if (child.CompareTag("SpawnPoint"))
+            {
+                spawnPoint = child;
+            }
+        }
+
         // Taretin tag'ine göre hedef tag'ini belirle
         if (gameObject.CompareTag("Enemy"))
         {
@@ -31,23 +39,19 @@ public class Shoot : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (spawnPoint == null)
         {
-            Fire();
-        }
-        GameObject spawnPointObj = GameObject.FindGameObjectWithTag("SpawnPoint");
-        if (spawnPointObj == null)  
-        {
-
-            if (gameObject.CompareTag("Enemy"))
+            foreach (Transform child in gameObject.transform)
             {
-                spawnPoint = spawnPointObj.transform;
+                if (child.CompareTag("SpawnPoint"))
+                {
+                    spawnPoint = child;
+                }
             }
-            targetTag = "Target";
         }
         FindNearestTarget();  // En yakýndaki düþmaný bul
         RotateTowardsTarget();
-        if (target != null && Time.time >= nextFireTime)  // Hedef varsa ve ateþ zamaný geldiyse
+        if (target != null && Time.time >= nextFireTime && target.tag!=this.gameObject.tag)  // Hedef varsa ve ateþ zamaný geldiyse
         {
             float distanceToTarget = Vector3.Distance(transform.position, target.position);
             if (distanceToTarget <= weaponSystem.fireRange)  // Hedef menzil içinde mi?
@@ -57,25 +61,29 @@ public class Shoot : MonoBehaviour
                 nextFireTime = Time.time + 1f / weaponSystem.fireRate;
             }
         }
+     
     }
 
     void FindNearestTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(targetTag);
-        float closestDistance = Mathf.Infinity;
-        Transform closestEnemy = null;
+      
+      
+        
 
+        Transform tMin = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
         foreach (GameObject enemy in enemies)
         {
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy < closestDistance && distanceToEnemy <= weaponSystem.fireRange)  // Menzil içinde mi?
+            float dist = Vector3.Distance(enemy.transform.position, currentPos);
+            if (dist < minDist)
             {
-                closestDistance = distanceToEnemy;
-                closestEnemy = enemy.transform;
+                tMin = enemy.transform;
+                minDist = dist;
+                target = enemy.transform;
             }
         }
-
-        target = closestEnemy;
     }
 
     void RotateTowardsTarget()
@@ -84,10 +92,10 @@ public class Shoot : MonoBehaviour
         if (target != null)
         {
             Vector3 direction = (target.position - transform.position).normalized;
-            direction.y = 0;  // Y ekseninde dönüþü engelle
+            direction.y = 0;  
             Quaternion lookRotation = Quaternion.LookRotation(direction);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(target.position), 5 * Time.deltaTime);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(target.localPosition), 5 * Time.deltaTime);
         }
     }
 

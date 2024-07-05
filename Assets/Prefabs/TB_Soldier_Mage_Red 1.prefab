@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: -2158884261676153207}
   - component: {fileID: -2734962765463886633}
   m_Layer: 0
-  m_Name: TB_Soldier_Mage_Red
+  m_Name: TB_Soldier_Mage_Red 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

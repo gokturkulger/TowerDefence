@@ -9,6 +9,7 @@ public class WeopanSystem : ScriptableObject
     public GameObject spawnFirePoint;
     public float launchVelocity;
     public GameObject prefabBullet;
+    public float fireSpeed;
     [System.Serializable]
     public enum GunType
     {

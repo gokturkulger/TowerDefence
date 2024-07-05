@@ -12,12 +12,15 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI upgradeCostText;
     public GameObject upgradeButton;
     public Image turretSelectionIndicator;
-
+    public TextMeshProUGUI currentLevel;
+    public LevelManager levelManager;
     private Turret selectedTurret;
 
     public TextMeshProUGUI scoreText;
     void Awake()
     {
+        levelManager = FindAnyObjectByType<LevelManager>();
+        currentLevel.text = " Level"+ levelManager.currentLevel.ToString();
         if (instance == null)
         {
             instance = this;
@@ -82,20 +85,3 @@ public class UIManager : MonoBehaviour
     }
 }
 
-//public class UIManager : MonoBehaviour
-//{
-//    public TextMeshProUGUI scoreText;  // TextMeshProUGUI nesnesi
-
-//    void Start()
-//    {
-//        // Oyun baþladýðýnda skoru güncelleyelim
-//        UpdateScoreUI(GameManager.instance.GetScore());
-//    }
-
-//    public void UpdateScoreUI(int score)
-//    {
-//        // TextMeshProUGUI nesnesine skoru yazdýr
-//        scoreText.text = "Score: " + score.ToString();
-//    }
-
-//}

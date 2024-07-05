@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1581df2598a28ab4d8ea493ae9ecae5a, type: 3}
   m_Name: CharacterData
   m_EditorClassIdentifier: 
-  playerType: 0
-  closeRangeThreshold: 0.65
+  playerType: 1
+  closeRangeThreshold: 10
   closeRangeFireRate: 1
-  farRangeFireRate: 26.15
+  farRangeFireRate: 20
   bombThrowRate: 0.2
   closeRangeAttackPrefab: {fileID: 0}
   farRangeAttackPrefab: {fileID: 0}
